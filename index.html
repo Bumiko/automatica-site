@@ -841,6 +841,7 @@
             .journey-step {
                 flex-direction: row-reverse;
                 margin-left: 40px;
+                padding: 2rem; /* Add padding for spacing */
             }
             
             .journey-step:nth-child(even) {
@@ -852,9 +853,13 @@
             }
             
             .journey-point {
-                left: 20px;
-                top: 50%;
-                transform: translateY(-50%);
+                position: absolute; /* Position relative to the step */
+                left: -15px; /* Position point over the line (adjust as needed) */
+                top: 10px; /* Fine-tune vertical position relative to text */
+                transform: none; /* Reset transform */
+                width: 20px; /* Adjust size if needed */
+                height: 20px;
+                z-index: 2; /* Ensure point is above the line */
             }
         }
         
@@ -897,6 +902,67 @@
             
             .section-title {
                 font-size: 2rem;
+            }
+
+            /* Client Journey Mobile Adjustments */
+            .journey-section .container {
+                padding-left: 30px; /* Add space for the line and points */
+                padding-right: 15px; /* Adjust right padding if needed */
+                position: relative; /* Context for absolute positioning */
+            }
+
+            .journey-line {
+                left: 15px; /* Position the line within the container padding */
+                height: calc(100% - 60px); /* Adjust height based on padding/margins */
+                top: 30px; /* Adjust top position */
+            }
+
+            .journey-step {
+                flex-direction: column; /* Stack elements vertically */
+                align-items: flex-start; /* Align items to the start */
+                margin-left: 0; /* Remove desktop margin */
+                padding: 0 0 2rem 0; /* Adjust padding, remove left padding */
+                position: relative; /* Context for the point */
+            }
+
+            .journey-step:nth-child(even) {
+                 flex-direction: column; /* Ensure consistent direction */
+                 align-items: flex-start;
+            }
+
+            .journey-point {
+                position: absolute; /* Position relative to the step */
+                left: -15px; /* Position point over the line (adjust as needed) */
+                top: 10px; /* Fine-tune vertical position relative to text */
+                transform: none; /* Reset transform */
+                width: 20px; /* Adjust size if needed */
+                height: 20px;
+                z-index: 2; /* Ensure point is above the line */
+            }
+
+            /* Remove specific positioning for even points on mobile */
+            .journey-step:nth-child(even) .journey-point {
+                left: -15px; /* Consistent positioning */
+                top: 10px;
+            }
+
+            .journey-content {
+                width: 100%; /* Take full width */
+                padding-left: 1rem; /* Add slight padding to separate from point visually */
+                text-align: left; /* Ensure text is left-aligned */
+            }
+
+             .journey-step-number {
+                margin-bottom: 0.3rem;
+                font-size: 0.8rem;
+            }
+
+            .journey-step-title {
+                margin-bottom: 0.5rem;
+                font-size: 1.3rem;
+            }
+             .journey-step-description {
+                font-size: 0.9rem;
             }
         }
     </style>
