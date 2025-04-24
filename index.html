@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUTOMATICA TRANSFORM™ - Платформа интеллектуальной трансформации бизнеса</title>
+    <style>
+        /* Base Styles */
+        :root {
+            --dark-blue: #050E2F;
+            --neon-orange: #FF5C00;
+            --neon-purple: #D429DE;
+            --neon-blue: #29A3DE;
+            --neon-cyan: #00D4D4;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', 'Roboto', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-blue);
+            color: white;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(0, 212, 212, 0.1) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(212, 41, 222, 0.1) 0%, transparent 25%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 0;
+            position: relative;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: white;
+            position: relative;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background-color: var(--neon-orange);
+            bottom: -5px;
+            left: 0;
+            filter: blur(3px);
+        }
+        
+        .logo-letter {
+            color: var(--neon-orange);
+            font-weight: 900;
+            font-size: 2.2rem;
+            margin-right: 10px;
+            text-shadow: 0 0 10px var(--neon-orange);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--neon-cyan);
+        }
+        
+        .nav-links a:hover::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: var(--neon-cyan);
+            bottom: -5px;
+            left: 0;
+            filter: blur(2px);
+        }
+        
+        .action-btn {
+            background: linear-gradient(90deg, var(--neon-orange), #FF8A50);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .action-btn::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-orange), #FF8A50);
+            top: 0;
+            left: 0;
+            z-index: -1;
+            transition: opacity 0.3s;
+            opacity: 0.7;
+            filter: blur(15px);
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 92, 0, 0.3);
+        }
+        
+        .action-btn:hover::before {
+            opacity: 1;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            width: 50%;
+            z-index: 2;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            background: linear-gradient(90deg, white, #d0d0d0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero-title span {
+            background: linear-gradient(90deg, var(--neon-orange), #FF8A50);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero-description {
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+            color: #b0b0b0;
+        }
+        
+        .hero-visual {
+            position: absolute;
+            width: 60%;
+            right: -10%;
+            top: 10%;
+            height: 80%;
+            background-image: url('/api/placeholder/800/600');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 1;
+            opacity: 0.9;
+        }
+        
+        .digital-city {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            right: 0;
+            top: 0;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        /* Animation for data flows */
+        @keyframes flowUp {
+            0% { transform: translateY(100%) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100%) translateX(20px); opacity: 0; }
+        }
+        
+        @keyframes flowRight {
+            0% { transform: translateX(-100%); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(100%); opacity: 0; }
+        }
+        
+        .data-flow {
+            position: absolute;
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(to top, transparent, var(--neon-purple), transparent);
+            filter: blur(1px);
+            opacity: 0;
+            animation: flowUp 4s infinite;
+        }
+        
+        .data-flow:nth-child(2n) {
+            background: linear-gradient(to top, transparent, var(--neon-blue), transparent);
+            animation-delay: 0.7s;
+            animation-duration: 5s;
+        }
+        
+        .data-flow:nth-child(3n) {
+            background: linear-gradient(to top, transparent, var(--neon-cyan), transparent);
+            animation-delay: 1.5s;
+            animation-duration: 4.5s;
+        }
+        
+        .data-flow:nth-child(4n) {
+            width: 150px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--neon-purple), transparent);
+            animation: flowRight 6s infinite;
+            animation-delay: 2s;
+        }
+        
+        /* Module Section */
+        .module-section {
+            padding: 6rem 0;
+            position: relative;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, white, #d0d0d0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #b0b0b0;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .module-card {
+            background: rgba(5, 14, 47, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .module-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 212, 212, 0.2);
+            border-color: rgba(0, 212, 212, 0.3);
+        }
+        
+        .module-card::before {
+            content: "";
+            position: absolute;
+            width: 150%;
+            height: 50px;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 212, 0.1), transparent);
+            top: -25px;
+            left: -25%;
+            transform: rotate(45deg);
+            transition: all 0.6s;
+        }
+        
+        .module-card:hover::before {
+            transform: translateY(400%) rotate(45deg);
+        }
+        
+        .module-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--neon-cyan);
+        }
+        
+        .module-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .module-description {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+        
+        /* Implementation Models */
+        .implementation-section {
+            padding: 6rem 0;
+            background: linear-gradient(to bottom, var(--dark-blue), #030a20);
+        }
+        
+        .models-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .model-card {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(5, 14, 47, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .model-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(212, 41, 222, 0.2);
+            border-color: rgba(212, 41, 222, 0.3);
+        }
+        
+        .model-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .model-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            background: rgba(212, 41, 222, 0.2);
+            color: var(--neon-purple);
+        }
+        
+        .model-title {
+            font-size: 1.3rem;
+            color: white;
+        }
+        
+        .model-timeframe {
+            font-size: 0.8rem;
+            color: #b0b0b0;
+            margin-top: 0.3rem;
+        }
+        
+        .model-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .model-features li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: flex-start;
+            line-height: 1.4;
+        }
+        
+        .model-features li::before {
+            content: "▹";
+            color: var(--neon-purple);
+            margin-right: 0.5rem;
+        }
+        
+        .model-action {
+            background: rgba(212, 41, 222, 0.2);
+            color: white;
+            border: 1px solid rgba(212, 41, 222, 0.5);
+            padding: 0.7rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        .model-action:hover {
+            background: rgba(212, 41, 222, 0.4);
+            transform: translateY(-3px);
+        }
+
+        /* Dashboard Visualization */
+        .dashboard-section {
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dashboard-visual {
+            width: 90%;
+            height: 500px;
+            margin: 0 auto;
+            position: relative;
+            border-radius: 20px;
+            background: rgba(5, 14, 47, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .dashboard-placeholder {
+            width: 100%;
+            height: 100%;
+            background-image: url('/api/placeholder/800/400');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.8;
+        }
+        
+        .dashboard-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(0, 212, 212, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .pulse-point {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--neon-cyan);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(0, 212, 212, 0.7); }
+            70% { transform: scale(2); opacity: 0; box-shadow: 0 0 0 10px rgba(0, 212, 212, 0); }
+            100% { transform: scale(1); opacity: 0; }
+        }
+        
+        /* Results Section */
+        .results-section {
+            padding: 6rem 0;
+            background: linear-gradient(to bottom, #030a20, var(--dark-blue));
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .result-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            background: rgba(5, 14, 47, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(41, 163, 222, 0.2);
+            border-color: rgba(41, 163, 222, 0.3);
+        }
+        
+        .result-number {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .result-text {
+            color: #b0b0b0;
+            line-height: 1.4;
+        }
+        
+        /* Client Journey */
+        .journey-section {
+            padding: 6rem 0;
+        }
+        
+        .journey-steps {
+            margin-top: 4rem;
+            position: relative;
+        }
+        
+        .journey-line {
+            position: absolute;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--neon-purple), var(--neon-blue));
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+        
+        .journey-step {
+            display: flex;
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .journey-step:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .journey-content {
+            width: 45%;
+            padding: 2rem;
+            background: rgba(5, 14, 47, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .journey-point {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--dark-blue);
+            border: 4px solid var(--neon-purple);
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            box-shadow: 0 0 20px rgba(212, 41, 222, 0.5);
+        }
+        
+        .journey-step:nth-child(even) .journey-point {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 20px rgba(41, 163, 222, 0.5);
+        }
+        
+        .journey-step-number {
+            font-size: 0.9rem;
+            color: var(--neon-purple);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .journey-step:nth-child(even) .journey-step-number {
+            color: var(--neon-blue);
+        }
+        
+        .journey-step-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .journey-step-description {
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 0;
+            text-align: center;
+            background: linear-gradient(to bottom, var(--dark-blue), #02071A);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta-title {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, white, #d0d0d0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .cta-description {
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .cta-primary {
+            background: linear-gradient(90deg, var(--neon-orange), #FF8A50);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .cta-primary::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-orange), #FF8A50);
+            top: 0;
+            left: 0;
+            z-index: -1;
+            transition: opacity 0.3s;
+            opacity: 0.7;
+            filter: blur(15px);
+        }
+        
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 92, 0, 0.3);
+        }
+        
+        .cta-primary:hover::before {
+            opacity: 1;
+        }
+        
+        .cta-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid var(--neon-cyan);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .cta-secondary:hover {
+            background: rgba(0, 212, 212, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 212, 212, 0.2);
+        }
+        
+        .cta-bg-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255, 92, 0, 0.1) 0%, transparent 50%);
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 4rem 0;
+            background: #02071A;
+            position: relative;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 3rem;
+        }
+        
+        .footer-logo {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: white;
+            position: relative;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-description {
+            max-width: 300px;
+            color: #b0b0b0;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .footer-links h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--neon-cyan);
+        }
+        
+        .footer-contact {
+            max-width: 300px;
+        }
+        
+        .footer-contact h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .contact-info {
+            color: #b0b0b0;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-link:hover {
+            background: var(--neon-cyan);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            color: #b0b0b0;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-content {
+                width: 60%;
+            }
+            
+            .hero-visual {
+                width: 50%;
+            }
+            
+            .journey-line {
+                left: 20px;
+            }
+            
+            .journey-step {
+                flex-direction: row-reverse;
+                margin-left: 40px;
+            }
+            
+            .journey-step:nth-child(even) {
+                flex-direction: row-reverse;
+            }
+            
+            .journey-content {
+                width: 100%;
+            }
+            
+            .journey-point {
+                left: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-content {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-visual {
+                display: none;
+            }
+            
+            .model-card {
+                min-width: 100%;
+            }
+            
+            .module-card {
+                text-align: center;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="container">
+        <nav>
+            <a href="#" class="logo">
+                <span class="logo-letter">A</span>UTOMATICA
+            </a>
+            <div class="nav-links">
+                <a href="#about">О платформе</a>
+                <a href="#modules">Модули</a>
+                <a href="#implementation">Внедрение</a>
+                <a href="#results">Результаты</a>
+            </div>
+            <button class="action-btn">Связаться</button>
+        </nav>
+    </div>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">AUTOMATICA <span>TRANSFORM™</span></h1>
+                <p class="hero-description">Интегрированная платформа, сочетающая AI-агентов, консалтинговую экспертизу и обучающие программы для комплексной автоматизации и оптимизации бизнес-процессов.</p>
+                <a href="#contact" class="action-btn">Начать трансформацию</a>
+            </div>
+            
+            <div class="digital-city">
+                <!-- Data flow animations -->
+                <div class="data-flow" style="left: 10%; top: 10%;"></div>
+                <div class="data-flow" style="left: 25%; top: 30%;"></div>
+                <div class="data-flow" style="left: 40%; top: 50%;"></div>
+                <div class="data-flow" style="left: 60%; top: 70%;"></div>
+                <div class="data-flow" style="left: 30%; top: 40%;"></div>
+                <div class="data-flow" style="left: 50%; top: 20%;"></div>
+                <div class="data-flow" style="left: 70%; top: 60%;"></div>
+                <div class="data-flow" style="left: 20%; top: 80%;"></div>
+            </div>
+            
+            <div class="hero-visual">
+                <!-- City visualization placeholder -->
+            </div>
+        </div>
+    </section>
+    
+    <!-- Modules Section -->
+    <section class="module-section" id="modules">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Архитектура платформы</h2>
+                <p class="section-subtitle">AUTOMATICA TRANSFORM™ представляет собой многоуровневую архитектуру, где каждый компонент усиливает общую эффективность вашего бизнеса.</p>
+            </div>
+            
+            <div class="modules-grid">
+                <!-- CORE -->
+                <div class="module-card">
+                    <div class="module-icon">⬢</div>
+                    <h3 class="module-title">CORE</h3>
+                    <p class="module-description">Фундамент цифровой трансформации с экспресс-аудитом, единой панелью управления и центром контроля AI-решений.</p>
+                </div>
+                
+                <!-- AGENTS -->
+                <div class="module-card">
+                    <div class="module-icon">⬡</div>
+                    <h3 class="module-title">AGENTS</h3>
+                    <p class="module-description">Специализированные AI-агенты для руководителей, аналитиков, HR, продаж и других ключевых направлений бизнеса.</p>
+                </div>
+                
+                <!-- CONSULT -->
+                <div class="module-card">
+                    <div class="module-icon">⬠</div>
+                    <h3 class="module-title">CONSULT</h3>
+                    <p class="module-description">Экспертное консалтинговое сопровождение, включающее стратегические сессии и реинжиниринг бизнес-процессов.</p>
+                </div>
+                
+                <!-- ACADEMY -->
+                <div class="module-card">
+                    <div class="module-icon">⬣</div>
+                    <h3 class="module-title">ACADEMY</h3>
+                    <p class="module-description">Комплексное обучение персонала от C-level до линейных сотрудников для эффективного внедрения цифровых технологий.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Dashboard Visualization -->
+    <section class="dashboard-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Transform Dashboard™</h2>
+                <p class="section-subtitle">Единая панель управления трансформацией с визуализацией всех ключевых метрик и процессов в реальном времени.</p>
+            </div>
+            
+            <div class="dashboard-visual">
+                <div class="dashboard-placeholder"></div>
+                <div class="dashboard-glow"></div>
+                <!-- Pulse points on the dashboard -->
+                <div class="pulse-point" style="top: 30%; left: 20%;"></div>
+                <div class="pulse-point" style="top: 50%; left: 60%;"></div>
+                <div class="pulse-point" style="top: 70%; left: 40%;"></div>
+                <div class="pulse-point" style="top: 25%; left: 80%;"></div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Implementation Models -->
+    <section class="implementation-section" id="implementation">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Модели внедрения</h2>
+                <p class="section-subtitle">Выберите оптимальный масштаб внедрения AUTOMATICA TRANSFORM™ в соответствии с вашими целями и готовностью к изменениям.</p>
+            </div>
+            
+            <div class="models-container">
+                <!-- PILOT -->
+                <div class="model-card">
+                    <div class="model-header">
+                        <div class="model-icon">P</div>
+                        <div>
+                            <h3 class="model-title">PILOT</h3>
+                            <p class="model-timeframe">4-6 недель</p>
+                        </div>
+                    </div>
+                    
+                    <ul class="model-features">
+                        <li>Express Audit™</li>
+                        <li>1 AI-агент на выбор</li>
+                        <li>2 сессии консалтинга</li>
+                        <li>Базовое обучение команды</li>
+                    </ul>
+                    
+                    <a href="#contact" class="model-action">Запустить пилот</a>
+                </div>
+                
+                <!-- DEPARTMENT -->
+                <div class="model-card">
+                    <div class="model-header">
+                        <div class="model-icon">D</div>
+                        <div>
+                            <h3 class="model-title">DEPARTMENT</h3>
+                            <p class="model-timeframe">2-3 месяца</p>
+                        </div>
+                    </div>
+                    
+                    <ul class="model-features">
+                        <li>Полный аудит отдела</li>
+                        <li>2-3 AI-агента</li>
+                        <li>Еженедельный консалтинг</li>
+                        <li>Обучение всех сотрудников отдела</li>
+                    </ul>
+                    
+                    <a href="#contact" class="model-action">Трансформировать отдел</a>
+                </div>
+                
+                <!-- ENTERPRISE -->
+                <div class="model-card">
+                    <div class="model-header">
+                        <div class="model-icon">E</div>
+                        <div>
+                            <h3 class="model-title">ENTERPRISE</h3>
+                            <p class="model-timeframe">6-12 месяцев</p>
+                        </div>
+                    </div>
+                    
+                    <ul class="model-features">
+                        <li>Комплексная трансформация</li>
+                        <li>Полный набор AI-агентов</li>
+                        <li>Dedicated консалтинговая команда</li>
+                        <li>Корпоративная AI-академия</li>
+                    </ul>
+                    
+                    <a href="#contact" class="model-action">Глобальная трансформация</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Results Section -->
+    <section class="results-section" id="results">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Ожидаемые результаты</h2>
+                <p class="section-subtitle">AUTOMATICA TRANSFORM™ обеспечивает значительное повышение эффективности по всем ключевым показателям бизнеса.</p>
+            </div>
+            
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="result-number">20-40%</div>
+                    <p class="result-text">Снижение операционных затрат</p>
+                </div>
+                
+                <div class="result-card">
+                    <div class="result-number">35%</div>
+                    <p class="result-text">Высвобождение ФОТ</p>
+                </div>
+                
+                <div class="result-card">
+                    <div class="result-number">70%</div>
+                    <p class="result-text">Автоматизация рутинных процессов</p>
+                </div>
+                
+                <div class="result-card">
+                    <div class="result-number">50%</div>
+                    <p class="result-text">Ускорение принятия решений</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Client Journey -->
+    <section class="journey-section" id="journey">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Путь клиента</h2>
+                <p class="section-subtitle">Пять шагов к успешной цифровой трансформации вашего бизнеса с AUTOMATICA TRANSFORM™.</p>
+            </div>
+            
+            <div class="journey-steps">
+                <div class="journey-line"></div>
+                
+                <!-- Step 1 -->
+                <div class="journey-step">
+                    <div class="journey-content">
+                        <div class="journey-step-number">ШАГ 1</div>
+                        <h3 class="journey-step-title">Discovery Session</h3>
+                        <p class="journey-step-description">Бесплатная стратегическая сессия для определения болевых точек и целей трансформации вашего бизнеса.</p>
+                    </div>
+                    <div class="journey-point"></div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="journey-step">
+                    <div class="journey-content">
+                        <div class="journey-step-number">ШАГ 2</div>
+                        <h3 class="journey-step-title">Express Audit™</h3>
+                        <p class="journey-step-description">Быстрая диагностика ключевых процессов, выявление неэффективностей и потенциала для улучшений за 2 недели.</p>
+                    </div>
+                    <div class="journey-point"></div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="journey-step">
+                    <div class="journey-content">
+                        <div class="journey-step-number">ШАГ 3</div>
+                        <h3 class="journey-step-title">Pilot Selection</h3>
+                        <p class="journey-step-description">Выбор оптимального направления для пилотного проекта на основе проведенного аудита и ваших приоритетов.</p>
+                    </div>
+                    <div class="journey-point"></div>
+                </div>
+                
+                <!-- Step 4 -->
+                <div class="journey-step">
+                    <div class="journey-content">
+                        <div class="journey-step-number">ШАГ 4</div>
+                        <h3 class="journey-step-title">Pilot Launch</h3>
+                        <p class="journey-step-description">Запуск пилотного проекта с одним AI-агентом на выбранном направлении в течение 4-6 недель.</p>
+                    </div>
+                    <div class="journey-point"></div>
+                </div>
+                
+                <!-- Step 5 -->
+                <div class="journey-step">
+                    <div class="journey-content">
+                        <div class="journey-step-number">ШАГ 5</div>
+                        <h3 class="journey-step-title">Result Validation</h3>
+                        <p class="journey-step-description">Оценка результатов пилота, расчет ROI и планирование масштабирования решения на другие направления.</p>
+                    </div>
+                    <div class="journey-point"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <div class="cta-bg-glow"></div>
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Начните цифровую трансформацию сегодня</h2>
+                <p class="cta-description">Сделайте шаг к опережающему развитию: свяжитесь с нами для обсуждения проекта и подготовки индивидуального решения для вашего бизнеса.</p>
+                <div class="cta-buttons">
+                    <a href="#" class="cta-primary">Запросить демо</a>
+                    <a href="#" class="cta-secondary">Связаться с экспертом</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <a href="#" class="footer-logo">
+                        <span class="logo-letter">A</span>UTOMATICA
+                    </a>
+                    <p class="footer-description">AUTOMATICA TRANSFORM™ — интегрированная платформа для комплексной автоматизации и оптимизации бизнес-процессов с помощью искусственного интеллекта.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Компания</h3>
+                    <a href="#">О нас</a>
+                    <a href="#">Команда</a>
+                    <a href="#">Карьера</a>
+                    <a href="#">Блог</a>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Решения</h3>
+                    <a href="#">AI-агенты</a>
+                    <a href="#">Консалтинг</a>
+                    <a href="#">Обучение</a>
+                    <a href="#">Кейсы</a>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Контакты</h3>
+                    <p class="contact-info">
+                        Email: anthony@automatica.io<br>
+                        Телефон: +7 926 602-06-70<br>
+                        Telegram: @codegeek
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">T</a>
+                        <a href="#" class="social-link">F</a>
+                        <a href="#" class="social-link">L</a>
+                        <a href="#" class="social-link">I</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2025 AUTOMATICA. Все права защищены.</p>
+                <p>
+                    <a href="#" style="color: #b0b0b0; text-decoration: none; margin-right: 1rem;">Условия использования</a>
+                    <a href="#" style="color: #b0b0b0; text-decoration: none;">Политика конфиденциальности</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create random data flows
+            const digitalCity = document.querySelector('.digital-city');
+            for (let i = 0; i < 15; i++) {
+                const dataFlow = document.createElement('div');
+                dataFlow.className = 'data-flow';
+                dataFlow.style.left = `${Math.random() * 100}%`;
+                dataFlow.style.top = `${Math.random() * 100}%`;
+                dataFlow.style.animationDelay = `${Math.random() * 5}s`;
+                dataFlow.style.animationDuration = `${3 + Math.random() * 4}s`;
+                digitalCity.appendChild(dataFlow);
+            }
+            
+            // Create pulse points on dashboard
+            const dashboardVisual = document.querySelector('.dashboard-visual');
+            for (let i = 0; i < 8; i++) {
+                const pulsePoint = document.createElement('div');
+                pulsePoint.className = 'pulse-point';
+                pulsePoint.style.top = `${10 + Math.random() * 80}%`;
+                pulsePoint.style.left = `${10 + Math.random() * 80}%`;
+                pulsePoint.style.animationDelay = `${Math.random() * 4}s`;
+                dashboardVisual.appendChild(pulsePoint);
+            }
+        });
+    </script>
+</body>
+</html>
